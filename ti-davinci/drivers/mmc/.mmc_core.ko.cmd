@@ -1,0 +1,1 @@
+cmd_drivers/mmc/mmc_core.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o drivers/mmc/mmc_core.ko drivers/mmc/mmc_core.o drivers/mmc/mmc_core.mod.o

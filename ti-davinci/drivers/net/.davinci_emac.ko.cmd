@@ -1,0 +1,1 @@
+cmd_drivers/net/davinci_emac.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o drivers/net/davinci_emac.ko drivers/net/davinci_emac.o drivers/net/davinci_emac.mod.o

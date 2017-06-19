@@ -1,0 +1,1 @@
+cmd_drivers/usb/musb/musb_hdrc.o := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o drivers/usb/musb/musb_hdrc.o drivers/usb/musb/musb_core.o drivers/usb/musb/davinci.o drivers/usb/musb/musb_gadget_ep0.o drivers/usb/musb/musb_gadget.o drivers/usb/musb/cppi_dma.o

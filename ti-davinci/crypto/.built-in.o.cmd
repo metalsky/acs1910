@@ -1,0 +1,1 @@
+cmd_crypto/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o crypto/built-in.o crypto/api.o crypto/scatterwalk.o crypto/cipher.o crypto/digest.o crypto/compress.o crypto/proc.o crypto/hmac.o

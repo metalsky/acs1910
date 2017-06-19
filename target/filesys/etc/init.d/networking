@@ -1,0 +1,249 @@
+#!/bin/sh
+# Name: networking
+# Date: 2007-02-27 03:00PM
+# Author: MontaVista Software, Inc. <source@mvista.com>
+# Copyright: Copyright 1999-2007 MontaVista Software, Inc.
+# License: 2006 (c) MontaVista Software, Inc. This file is licensed
+#          under the terms of the GNU General Public License version 2.
+#          This program is licensed "as is" without any warranty of any
+#          kind, whether express or implied.
+#
+# Copyright 2002, 2003, 2004 Sony Corporation
+# Copyright 2002, 2003, 2004 Matsushita Electric Industrial Co., Ltd.
+#### BEGIN INIT INFO
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start: S
+# Default-Stop: 0 1 2 3 4 5 6
+# Short-Description: start/stop networking daemons
+# Description: start/stop networking daemons
+### END INIT INFO
+# chkconfig: S 40 0
+
+# Init script information
+INIT_NAME=networking
+DESC="network interfaces"
+
+# Individual Daemon information
+DAEMON1=/sbin/ifup
+DAEMON2=/sbin/ifdown
+BASENAME1=${DAEMON1##*/}
+BASENAME2=${DAEMON2##*/}
+STARTARGS="-a"
+STOPARGS="-a --exclude=lo"
+RESTARTARGS="-a --exclude=lo"
+
+# Load init script configuration
+[ -f /etc/network/$INIT_NAME ] && . /etc/network/$INIT_NAME
+
+# Source the init script functions
+. /etc/init.d/init-functions
+
+# Verify daemons are installed
+NFOUND=5
+test -f $DAEMON1 || exit $NFOUND
+test -f $DAEMON2 || exit $NFOUND
+test -f /bin/grep -a -f /bin/cut || exit $NFOUND
+
+spoofprotect_rp_filter() {
+	[ -e /proc/sys/net/ipv4/conf/all/rp_filter ] || return 1
+	RC=0
+	for f in /proc/sys/net/ipv4/conf/*/rp_filter; do
+		echo $1 > $f || RC=1
+	done
+	return $RC
+}
+
+spoofprotect() {
+	log_status_msg "Setting up IP spoofing protection: " -n
+	if spoofprotect_rp_filter $1; then
+		log_status_msg "rp_filter done."
+	else
+		log_status_msg "FAILED."
+	fi
+}
+
+ip_forward() {
+	if [ -e /proc/sys/net/ipv4/ip_forward ]; then
+		log_status_msg "$2 IPv4 packet forwarding: " -n
+		echo $1 > /proc/sys/net/ipv4/ip_forward
+		log_status_msg "done."
+	fi
+}
+
+# ip6_forward affects the forwarding capability on all the interfaces
+ip6_forward() {
+	if [ -e /proc/sys/net/ipv6/conf/all/forwarding ]; then
+		log_status_msg "$2 IPv6 packet forwarding: " -n
+		echo $1 > /proc/sys/net/ipv6/conf/all/forwarding
+		log_status_msg "done."
+	fi
+}
+
+syncookies() {
+	if [ -e /proc/sys/net/ipv4/tcp_syncookies ]; then
+		log_status_msg "$2 TCP/IP SYN cookies: " -n
+		echo $1 > /proc/sys/net/ipv4/tcp_syncookies
+		log_status_msg "done."
+	fi
+}
+
+disable_tcp_ecn() {
+	if [ -e /proc/sys/net/ipv4/tcp_ecn ]; then
+		if [ "$1" = 1 ]; then
+			log_status_msg "Disabling TCP/IP Explicit Congestion Notification: " -n
+			echo 0 > /proc/sys/net/ipv4/tcp_ecn
+		else
+			log_status_msg "Enabling TCP/IP Explicit Congestion Notification: " -n
+			echo 1 > /proc/sys/net/ipv4/tcp_ecn
+		fi
+		log_status_msg "done."
+	fi
+}
+
+doopt() {
+	optname=$1
+
+	opt=`grep "^$optname=" /etc/network/options || true`
+	optval=${opt#$optname=}
+
+	if [ "$optval" = "yes" ]; then
+		eval $optname 1 "Enabling "
+	elif [ "$optval" = "no" ]; then
+		eval $optname 0 "Disabling "
+	fi
+}
+
+process_options() {
+	[ -e /etc/network/options ] || return 0
+	log_warning_msg "/etc/network/options is deprecated."
+
+	# No default values for options anymore
+	doopt spoofprotect
+	doopt syncookies
+	doopt ip_forward
+	doopt ip6_forward
+	doopt disable_tcp_ecn
+}
+
+# Each init script action is defined below...
+
+start() {
+	local RET ERROR=
+	process_options
+	log_status_msg "Starting $DESC: " -n
+	$DAEMON1 $STARTARGS
+	RET=$?
+	if [ $RET -eq 0 ]; then
+		log_success_msg "done."
+        else
+		log_failure_msg " failed ($RET: $ERROR)."
+		return 1
+	fi
+
+	log_status_msg ""
+	return 0
+}
+
+stop () {
+	local RET ERROR=
+        fs_mount=`cut -f2,3 -d' ' /proc/mounts`
+        if echo "$fs_mount" |
+		grep -q "^/ nfs$"
+        then
+            	log_status_msg "NOT deconfiguring $DESC: / is an NFS mount"
+		return 1
+        elif echo "$fs_mount" |
+          	grep -q "^/ smbfs$"
+        then
+            	echo "NOT deconfiguring $DESC: / is an SMB mount"
+		return 1
+        elif echo "$fs_mount" | cut -f2 -d' ' |
+          	grep -qE '^(nfs|smbfs)$'
+        then
+            	echo "NOT deconfiguring $DESC: NFS/SMB shares still mounted."
+		return 1
+        else
+	     	log_status_msg "Stopping $DESC: " -n
+            	$DAEMON2 $STOPARGS
+		RET=$?
+		if [ $RET -eq 0 ]; then
+	             	log_status_msg "done."
+		else
+			log_failure_msg "failed ($RET: $ERROR). " -n
+			return 1
+		fi
+         fi
+
+	log_status_msg ""
+	return 0
+}
+
+restart() {
+	local RET
+
+	log_status_msg "Restarting $DESC..." -n
+        $DAEMON2 $STOPARGS
+        $DAEMON1 $RESTARTARGS
+	RET=$?
+        log_status_msg "done."
+	return $RET
+}
+
+#
+# if the service does not support reload return code 3 should
+# be the result...
+#
+reload() {
+	local RET
+
+	log_status_msg "Reloading $DESC configuration..." -n
+	# killproc $BASENAME1 -HUP
+	#
+	# repeat as necessary...
+	#
+	log_success_msg "done."
+
+	return 0
+}
+
+#
+# Everything after this should be the same for all init scripts
+#
+# See the policy manual for information on actions and return codes.
+#
+
+parse() {
+	case "$1" in
+		start)
+			start
+			return $?
+			;;
+		stop)
+			stop
+			return $?
+			;;
+		restart | force-reload)
+			restart
+			return $?
+			;;
+		try-restart)
+			restart
+			return $?
+			;;
+		reload)
+			reload
+			return $?
+ 	;;
+     *)
+			echo "Usage: $INIT_NAME " \
+			"{start|stop|restart|try-restart|reload|" \
+			"force-reload}" >&2
+ 	;;
+	esac
+	return 1
+}
+
+parse $@

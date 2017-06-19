@@ -1,0 +1,1 @@
+cmd_sound/core/snd-page-alloc.o := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o sound/core/snd-page-alloc.o sound/core/memalloc.o sound/core/sgbuf.o

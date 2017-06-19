@@ -1,0 +1,1 @@
+cmd_drivers/input/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o drivers/input/built-in.o drivers/input/input.o drivers/input/evdev.o

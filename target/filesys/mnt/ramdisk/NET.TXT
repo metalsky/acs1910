@@ -1,0 +1,13 @@
+LocalIP="172.24.190.245"
+NetMask="255.255.252.0"
+Gateway="172.24.188.1"
+DNS="172.24.170.30"
+DHCPConfig=0
+DHCPEnable=1
+HTTPPort=80
+Title="TI_IPNC"
+MAC="00:0c:0c:a0:03:78"
+PPPoEAccount=""
+PPPoEPassword=""
+PPPoEEnable=0
+

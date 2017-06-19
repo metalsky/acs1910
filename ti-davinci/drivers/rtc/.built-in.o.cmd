@@ -1,0 +1,1 @@
+cmd_drivers/rtc/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o drivers/rtc/built-in.o drivers/rtc/rtc-lib.o drivers/rtc/hctosys.o drivers/rtc/rtc-core.o drivers/rtc/rtc-sysfs.o drivers/rtc/rtc-proc.o drivers/rtc/rtc-dev.o drivers/rtc/rtc-davinci-dm365.o

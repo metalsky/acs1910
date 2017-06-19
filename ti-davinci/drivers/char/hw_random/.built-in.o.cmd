@@ -1,0 +1,1 @@
+cmd_drivers/char/hw_random/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o drivers/char/hw_random/built-in.o drivers/char/hw_random/core.o

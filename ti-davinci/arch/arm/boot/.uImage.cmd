@@ -1,0 +1,1 @@
+cmd_arch/arm/boot/uImage := /bin/bash /home/pamsimochen/arable_land/ipnc_2.6_orig/ipnc/ti-davinci/scripts/mkuboot.sh -A arm -O linux -T kernel -C none -a 0x80008000 -e 0x80008000 -n 'Linux-2.6.18_pro500-davinci_IPNC_DM368_2.6.0' -d arch/arm/boot/zImage arch/arm/boot/uImage

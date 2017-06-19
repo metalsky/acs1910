@@ -1,0 +1,1 @@
+cmd_kernel/time/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o kernel/time/built-in.o kernel/time/ntp.o kernel/time/clocksource.o kernel/time/jiffies.o kernel/time/clockevents.o

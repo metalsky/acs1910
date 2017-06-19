@@ -1,0 +1,1 @@
+cmd_net/ipv4/tcp_westwood.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o net/ipv4/tcp_westwood.ko net/ipv4/tcp_westwood.o net/ipv4/tcp_westwood.mod.o

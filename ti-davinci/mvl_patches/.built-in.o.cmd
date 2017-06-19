@@ -1,0 +1,1 @@
+cmd_mvl_patches/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o mvl_patches/built-in.o mvl_patches/p1.o mvl_patches/p2.o mvl_patches/p3.o mvl_patches/p4.o mvl_patches/p5.o mvl_patches/p6.o mvl_patches/p7.o mvl_patches/p8.o

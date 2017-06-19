@@ -1,0 +1,1 @@
+cmd_fs/autofs4/autofs4.o := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o fs/autofs4/autofs4.o fs/autofs4/init.o fs/autofs4/inode.o fs/autofs4/root.o fs/autofs4/symlink.o fs/autofs4/waitq.o fs/autofs4/expire.o

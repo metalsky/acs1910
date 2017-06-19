@@ -1,0 +1,1 @@
+cmd_sound/soc/davinci/snd-soc-davinci-i2s.o := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o sound/soc/davinci/snd-soc-davinci-i2s.o sound/soc/davinci/davinci-i2s.o

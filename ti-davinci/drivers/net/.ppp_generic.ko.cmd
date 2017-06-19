@@ -1,0 +1,1 @@
+cmd_drivers/net/ppp_generic.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o drivers/net/ppp_generic.ko drivers/net/ppp_generic.o drivers/net/ppp_generic.mod.o

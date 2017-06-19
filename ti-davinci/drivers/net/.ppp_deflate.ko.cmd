@@ -1,0 +1,1 @@
+cmd_drivers/net/ppp_deflate.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o drivers/net/ppp_deflate.ko drivers/net/ppp_deflate.o drivers/net/ppp_deflate.mod.o

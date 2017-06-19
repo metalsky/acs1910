@@ -1,0 +1,1 @@
+cmd_init/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o init/built-in.o init/main.o init/version.o init/mounts.o init/initramfs.o init/calibrate.o

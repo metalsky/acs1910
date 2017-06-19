@@ -1,0 +1,88 @@
+#!/bin/sh
+#
+# Name: inetd  
+# Date: 2006-07-26 13:40
+# Author: MontaVista Software, Inc. <source@mvista.com>
+# Copyright: Copyright 1999-2003 MontaVista Software, Inc.
+# License: 2003 (c) MontaVista Software, Inc. This file is licensed
+#          under the terms of the GNU General Public License version 2.
+#          This program is licensed "as is" without any warranty of any
+#          kind, whether express or implied.
+  #
+# Copyright 2002, 2003, 2004 Sony Corporation
+# Copyright 2002, 2003, 2004 Matsushita Electric Industrial Co., Ltd.
+#
+### BEGIN INIT INFO
+# Required-Start: 
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: start/stop inetd daemon
+# Description: start/stop inetd super server.
+### END INIT INFO 
+# chkconfig: 2345 20 20
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+if ! [ -x /usr/sbin/inetd ]; then
+	exit 0
+fi
+
+checkportmap () {
+    if grep -v "^ *#" /etc/inetd.conf | grep 'rpc/' >/dev/null; then
+        if ! [ -x /usr/bin/rpcinfo ]
+        then
+            echo
+            echo "WARNING: rpcinfo not available - RPC services may be unavailable!"
+            echo "         (Commenting out the rpc services in inetd.conf will"
+	    echo "         disable this message)"
+            echo
+        elif ! /usr/bin/rpcinfo -u localhost portmapper >/dev/null 2>/dev/null
+        then
+            echo
+            echo "WARNING: portmapper inactive - RPC services unavailable!"
+            echo "         (Commenting out the rpc services in inetd.conf will"
+	    echo "         disable this message)"
+            echo
+        fi
+    fi
+} 
+
+case "$1" in
+    start)
+        checkportmap
+	echo -n "Starting internet superserver:"
+	echo -n " inetd" ; start-stop-daemon --start --quiet --pidfile /var/run/inetd.pid --exec /usr/sbin/inetd
+	echo "."
+	;;
+    stop)
+	echo -n "Stopping internet superserver:"
+	echo -n " inetd" ; start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/inetd.pid --exec /usr/sbin/inetd
+	echo "."
+	;;
+    reload)
+	echo -n "Reloading internet superserver:"
+	echo -n " inetd"
+	start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/inetd.pid --signal 1
+	echo "."
+	;;
+    force-reload)
+	$0 reload
+	;;
+    restart)
+	echo -n "Restarting internet superserver:"
+	echo -n " inetd"
+	start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/inetd.pid
+	checkportmap
+	start-stop-daemon --start --quiet --pidfile /var/run/inetd.pid --exec /usr/sbin/inetd
+	echo "."
+	;;
+    *)
+	echo "Usage: /etc/init.d/inetd {start|stop|reload|restart}"
+	exit 1
+	;;
+esac
+
+exit 0
+

@@ -1,0 +1,1 @@
+cmd_drivers/mmc/davinci-mmc.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o drivers/mmc/davinci-mmc.ko drivers/mmc/davinci-mmc.o drivers/mmc/davinci-mmc.mod.o

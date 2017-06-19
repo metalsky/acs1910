@@ -1,0 +1,1 @@
+cmd_drivers/i2c/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o drivers/i2c/built-in.o drivers/i2c/i2c-core.o drivers/i2c/i2c-dev.o drivers/i2c/busses/built-in.o drivers/i2c/chips/built-in.o drivers/i2c/algos/built-in.o

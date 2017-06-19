@@ -1,0 +1,1 @@
+cmd_drivers/usb/mon/usbmon.o := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o drivers/usb/mon/usbmon.o drivers/usb/mon/mon_main.o drivers/usb/mon/mon_stat.o drivers/usb/mon/mon_text.o drivers/usb/mon/mon_dma.o

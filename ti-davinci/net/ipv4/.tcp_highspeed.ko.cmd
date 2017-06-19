@@ -1,0 +1,1 @@
+cmd_net/ipv4/tcp_highspeed.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o net/ipv4/tcp_highspeed.ko net/ipv4/tcp_highspeed.o net/ipv4/tcp_highspeed.mod.o

@@ -1,0 +1,1 @@
+cmd_sound/soc/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o sound/soc/built-in.o sound/soc/snd-soc-core.o sound/soc/codecs/built-in.o sound/soc/at91/built-in.o sound/soc/pxa/built-in.o sound/soc/s3c24xx/built-in.o sound/soc/sh/built-in.o sound/soc/davinci/built-in.o

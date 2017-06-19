@@ -1,0 +1,1 @@
+cmd_security/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o security/built-in.o security/security.o security/dummy.o security/inode.o security/commoncap.o security/capability.o

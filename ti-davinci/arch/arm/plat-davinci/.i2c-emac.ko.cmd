@@ -1,0 +1,1 @@
+cmd_arch/arm/plat-davinci/i2c-emac.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o arch/arm/plat-davinci/i2c-emac.ko arch/arm/plat-davinci/i2c-emac.o arch/arm/plat-davinci/i2c-emac.mod.o

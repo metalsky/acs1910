@@ -1,0 +1,1 @@
+cmd_sound/core/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o sound/core/built-in.o sound/core/snd.o sound/core/snd-timer.o sound/core/snd-pcm.o sound/core/snd-page-alloc.o sound/core/oss/built-in.o

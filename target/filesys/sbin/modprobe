@@ -1,0 +1,4 @@
+#!/bin/sh
+# Clean up bootup when modules are not present.
+
+/sbin/modprobe-bin -Q $*

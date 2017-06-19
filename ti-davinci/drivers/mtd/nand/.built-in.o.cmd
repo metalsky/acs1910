@@ -1,0 +1,1 @@
+cmd_drivers/mtd/nand/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o drivers/mtd/nand/built-in.o drivers/mtd/nand/nand.o drivers/mtd/nand/nand_ecc.o drivers/mtd/nand/nand_ids.o drivers/mtd/nand/davinci-nand.o

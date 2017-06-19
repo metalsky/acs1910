@@ -1,0 +1,1 @@
+cmd_arch/arm/boot/zImage := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-objcopy -O binary -R .note -R .comment -S  arch/arm/boot/compressed/vmlinux arch/arm/boot/zImage

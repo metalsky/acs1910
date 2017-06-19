@@ -1,0 +1,1 @@
+cmd_lib/built-in.o :=  /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL   -r -o lib/built-in.o lib/sort.o lib/parser.o lib/halfmd4.o lib/iomap_copy.o lib/debug_locks.o lib/rwsem-spinlock.o lib/kernel_lock.o lib/plist.o lib/crc32.o lib/zlib_inflate/built-in.o lib/zlib_deflate/built-in.o

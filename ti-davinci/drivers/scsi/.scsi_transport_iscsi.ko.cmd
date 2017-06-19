@@ -1,0 +1,1 @@
+cmd_drivers/scsi/scsi_transport_iscsi.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o drivers/scsi/scsi_transport_iscsi.ko drivers/scsi/scsi_transport_iscsi.o drivers/scsi/scsi_transport_iscsi.mod.o

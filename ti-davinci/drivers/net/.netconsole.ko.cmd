@@ -1,0 +1,1 @@
+cmd_drivers/net/netconsole.ko := /home/pamsimochen/workdir/toolchain/montavista/pro/devkit/arm/v5t_le/bin/arm_v5t_le-ld -EL  -r -o drivers/net/netconsole.ko drivers/net/netconsole.o drivers/net/netconsole.mod.o
